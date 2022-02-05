@@ -1,11 +1,14 @@
 package com.viveirosandre.dsmovie.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +24,13 @@ public class Movie implements Serializable{
 	private Integer count;
 	private String image;
 	
+	@OneToMany(mappedBy = "id.movie")
+	private Set<Score> scores = new HashSet<>();
+	
+	public Set<Score> getScores() {
+		return scores;
+	}
+
 	public Movie() {
 	}
 	
