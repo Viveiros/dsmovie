@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +22,8 @@ public class MovieService {
 	
 	@Transactional(readOnly = true)
 	public Page<MovieDTO> findAll(Pageable pageable){
-		Page<Movie> result = repository.findAll(pageable); 
+		//Page<Movie> result = repository.findAll(pageable); 
+		Page<Movie> result = repository.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.ASC, "title")));
 		Page<MovieDTO> page = result.map(x -> new MovieDTO(x));
 		return page;
 	}
