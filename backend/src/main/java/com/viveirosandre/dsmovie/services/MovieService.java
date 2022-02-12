@@ -23,7 +23,7 @@ public class MovieService {
 	@Transactional(readOnly = true)
 	public Page<MovieDTO> findAll(Pageable pageable){
 		//Page<Movie> result = repository.findAll(pageable); 
-		Page<Movie> result = repository.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.ASC, "title")));
+		Page<Movie> result = repository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.ASC, "title")));
 		Page<MovieDTO> page = result.map(x -> new MovieDTO(x));
 		return page;
 	}
